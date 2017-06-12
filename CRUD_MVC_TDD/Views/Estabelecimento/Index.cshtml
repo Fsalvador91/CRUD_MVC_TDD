@@ -1,0 +1,106 @@
+﻿@model IEnumerable<CRUD_MVC_TDD.Models.Estabelecimento>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>Cadastro de Estabelecimentos</h2>
+
+<p>
+    <input class="btn btn-success" value="Inserir Estabelecimento" type="button" onclick="location.href='@Url.Action("Inserir", "Estabelecimento")';return false;" />
+</p>
+<div id="DivEstabelecimentos">
+    <table class="table" id="tblEstabelecimentos" cellspacing="0" cellpadding="0">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NomeFantasia)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CNPJ)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefone)
+                </th>
+                <th>
+                    @Html.DisplayName("Categoria")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeFantasia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CNPJ)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoriaEstabelecimento.Nome)
+                </td>
+                <td>
+                    @(item.Status ? "Ativo" : "Inativo")
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Alterar", new { id = item.Id }) |
+                    @Html.ActionLink("Excluir", "Remover", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script src="~/Scripts/dataTables/js/jquery.dataTables.js"></script>
+<script>
+    //$(function () {
+    $(document).ready(function ($) {
+        $('#tblEstabelecimentos').dataTable({
+            "language": {
+                "loadingRecords": "Carregando...",
+                "sProcessing": "processando...",
+                "sZeroRecords": "sem registros",
+                "sInfo": "Mostrando _START_ a _END_ de _TOTAL_",
+                "sInfoEmpty": "0 até 0 de 0 registros",
+                "sInfoFiltered": "(localizados de _MAX_  registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Pesquisar:",
+                "sUrl": "",
+                "oPaginate": {
+                    "First": "<<",
+                    "sPrevious": "<",
+                    "sNext": ">",
+                    "sLast": ">>"
+                }
+            },
+            "bLengthChange": false,
+            "pageLength": 10
+        });
+    });
+</script>
+
+
+
+
